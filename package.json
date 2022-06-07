@@ -10,7 +10,7 @@
     "build:ui": "rm -rf build && cd ../FullStack/Osa2/puhelinluettelo/ && npm run build && cp -r build ../../../Fullstack_part3_Phonebook",
     "deploy": "git push heroku main",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push && npm run deploy",
-    "logs:prod": "heroku logs --tail" 
+    "logs:prod": "heroku logs --tail"
   },
   "repository": {
     "type": "git",
@@ -29,7 +29,9 @@
   "homepage": "https://github.com/Jiisala/FullStack-part3-phonebook#readme",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "mongoose": "^6.3.5",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
