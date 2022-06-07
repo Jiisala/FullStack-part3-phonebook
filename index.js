@@ -65,13 +65,13 @@ app.put('/api/persons/:id', (req, res, next) => {
 app.post('/api/persons', (req, res, next) => {
     
     const body = req.body
-    if (body.name === '') {
+    if (body.name === undefined) {
         console.log('BÄM')
         return res.status(400).json({
             error: 'Name missing'
         })
     }
-    if (body.number === '') {
+    if (body.number === undefined) {
         console.log('BOOM')
 
         return res.status(400).json({
@@ -106,7 +106,9 @@ const errorHandler = (error, req, res, next) =>{
     console.error(error.message)
     if (error.name === 'CastError'){
         return response.status(400).send({ error:'malformed id'})
-    }
+    }else if (error.name === 'ValidationError') {
+        return response.status(400).json({ error: error.message })
+      }
     next(error)
 }
 
