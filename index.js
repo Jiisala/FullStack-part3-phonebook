@@ -47,7 +47,7 @@ app.get('/api/persons/:id', (req, res, next) => {
     .catch(error => next(error))
 })
 app.delete('/api/persons/:id', (req, res, next) => {
-    Person.findByIdAndRemove(req.params.id)
+    Person.findByIdAndDelete(req.params.id)
     .then(() => {
     res.status(204).end()
     })
@@ -56,12 +56,7 @@ app.delete('/api/persons/:id', (req, res, next) => {
 app.put('/api/persons/:id', (req, res, next) => {
     
     const {id, name, number} = req.body
-    /*const person = {
-        id : body.id,
-        name: body.name,
-        number:body.number
-
-    }*/
+   
     Person.findByIdAndUpdate(req.params.id, 
         {id, name, number },
         {new: true, runValidators: true, context: 'query'})
@@ -99,7 +94,6 @@ const errorHandler = (error, req, res, next) =>{
     if (error.name === 'CastError'){
         return res.status(400).send({ error:'malformed id'})
     }else if (error.name === 'ValidationError') {
-        
         return res.status(400).json({ error: error.message })
       }
     next(error)
